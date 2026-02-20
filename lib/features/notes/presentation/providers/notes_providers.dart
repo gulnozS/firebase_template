@@ -60,6 +60,7 @@ final notesStreamProvider = StreamProvider.family<List<Note>, String>((
   ref,
   userId,
 ) {
+  // Family provider keeps stream keyed by user ID for multi-user isolation.
   return ref.watch(watchNotesUseCaseProvider).call(userId: userId);
 });
 
@@ -70,8 +71,11 @@ final noteActionControllerProvider =
 
 class NoteActionController extends AutoDisposeAsyncNotifier<void> {
   @override
-  FutureOr<void> build() {}
+  FutureOr<void> build() {
+    // Command controller does not need initial state loading.
+  }
 
+  /// Creates a note and optionally uploads image bytes first.
   Future<void> createNote({
     required String userId,
     required Note note,
@@ -85,6 +89,7 @@ class NoteActionController extends AutoDisposeAsyncNotifier<void> {
     });
   }
 
+  /// Updates a note and handles image replacement when provided.
   Future<void> updateNote({
     required String userId,
     required Note note,
@@ -98,6 +103,7 @@ class NoteActionController extends AutoDisposeAsyncNotifier<void> {
     });
   }
 
+  /// Deletes note document and linked storage image when available.
   Future<void> deleteNote({
     required String userId,
     required String noteId,
@@ -111,6 +117,7 @@ class NoteActionController extends AutoDisposeAsyncNotifier<void> {
     });
   }
 
+  /// Returns UI-safe message from mapped app failures.
   String? errorMessage() {
     final error = state.asError?.error;
     if (error is AppFailure) {

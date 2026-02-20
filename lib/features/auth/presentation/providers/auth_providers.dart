@@ -38,6 +38,7 @@ final watchAuthStateUseCaseProvider = Provider<WatchAuthStateUseCase>((ref) {
 });
 
 final authStateProvider = StreamProvider<AppUser?>((ref) {
+  // Firebase emits current session immediately and future changes afterward.
   return ref.watch(watchAuthStateUseCaseProvider).call();
 });
 
@@ -48,8 +49,11 @@ final authActionControllerProvider =
 
 class AuthActionController extends AutoDisposeAsyncNotifier<void> {
   @override
-  FutureOr<void> build() {}
+  FutureOr<void> build() {
+    // No eager load work required; controller is command-oriented.
+  }
 
+  /// Executes email/password sign-in and exposes loading/error state.
   Future<void> signIn({required String email, required String password}) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
@@ -66,6 +70,7 @@ class AuthActionController extends AutoDisposeAsyncNotifier<void> {
     });
   }
 
+  /// Returns user-safe error message for UI widgets.
   String? errorMessage() {
     final error = state.asError?.error;
     if (error is AppFailure) {

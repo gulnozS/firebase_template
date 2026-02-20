@@ -1,0 +1,12 @@
+{
+  "FIREBASE_PROJECT_ID": "replace-with-stage-project-id",
+  "FIREBASE_MESSAGING_SENDER_ID": "replace-with-stage-sender-id",
+  "FIREBASE_STORAGE_BUCKET": "replace-with-stage-storage-bucket",
+  "FIREBASE_WEB_API_KEY": "replace-with-stage-web-api-key",
+  "FIREBASE_WEB_APP_ID": "replace-with-stage-web-app-id",
+  "FIREBASE_ANDROID_API_KEY": "replace-with-stage-android-api-key",
+  "FIREBASE_ANDROID_APP_ID": "replace-with-stage-android-app-id",
+  "FIREBASE_IOS_API_KEY": "replace-with-stage-ios-api-key",
+  "FIREBASE_IOS_APP_ID": "replace-with-stage-ios-app-id",
+  "FIREBASE_IOS_BUNDLE_ID": "com.example.app.stage"
+}
